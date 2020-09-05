@@ -1,0 +1,52 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 3em;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 3em;
+}
+
+.logsys-container {
+   padding-top: 1em;
+}
+
+.logs-container {
+    width: 100%;
+    min-height: 40rem;
+    max-height: 60rem;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    border: #888888 1px groove;
+    background-color: #1B2B34;
+}
+
+.logs-list {
+    list-style: none;
+    padding-left: 0.5rem;
+}
+
+.event {
+    text-indent: -1rem;
+    padding-left: 1rem;
+}
+
+.logsys-fg-inline {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+#format-string {
+    width: 100%;
+}
+
+#available-parameters {
+    font-weight: bold;
+}

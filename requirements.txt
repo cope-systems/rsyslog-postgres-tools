@@ -1,0 +1,6 @@
+bottle
+eventlet
+bottle-swagger-2
+psycopg2-binary
+psycogreen
+yoyo-migrations

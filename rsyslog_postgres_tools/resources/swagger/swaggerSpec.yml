@@ -1,0 +1,242 @@
+swagger: '2.0'
+info: {
+  title: rsyslog-postgres-viewer,
+  version: 0.1.0
+}
+basePath: /api/1.0
+produces: [application/json]
+consumes: [application/json]
+definitions:
+  SystemEvent:
+    properties:
+      ID:
+        type: integer
+      CurrUsage:
+        type: integer
+        x-nullable: true
+      CustomerID:
+        type: integer
+        x-nullable: true
+      DeviceReportedTime:
+        format: date-time
+        type: string
+        x-nullable: true
+      EventBinaryData:
+        type: string
+        x-nullable: true
+      EventCategory:
+        type: integer
+        x-nullable: true
+      EventID:
+        type: integer
+        x-nullable: true
+      EventLogType:
+        type: string
+        x-nullable: true
+      EventSource:
+        type: string
+        x-nullable: true
+      EventUser:
+        type: string
+        x-nullable: true
+      Facility:
+        type: integer
+        x-nullable: true
+      FromHost:
+        type: string
+        x-nullable: true
+      GenericFileName:
+        type: string
+        x-nullable: true
+      Importance:
+        type: integer
+        x-nullable: true
+      InfoUnitID:
+        type: integer
+        x-nullable: true
+      MaxAvailable:
+        type: integer
+        x-nullable: true
+      MaxUsage:
+        type: integer
+        x-nullable: true
+      Message:
+        type: string
+        x-nullable: true
+      MinUsage:
+        type: integer
+        x-nullable: true
+      NTSeverity:
+        type: integer
+        x-nullable: true
+      Priority:
+        type: integer
+        x-nullable: true
+      ReceivedAt:
+        format: date-time
+        type: string
+        x-nullable: true
+      SysLogTag:
+        type: string
+        x-nullable: true
+    required:
+    - ID
+    - CustomerID
+    - ReceivedAt
+    - DeviceReportedTime
+    - Facility
+    - Priority
+    - FromHost
+    - Message
+    - NTSeverity
+    - Importance
+    - EventSource
+    - EventUser
+    - EventCategory
+    - EventID
+    - EventBinaryData
+    - MaxAvailable
+    - CurrUsage
+    - MinUsage
+    - MaxUsage
+    - InfoUnitID
+    - SysLogTag
+    - EventLogType
+    - GenericFileName
+    type: object
+  SystemEventsProperty:
+    properties:
+      ID:
+        type: integer
+        x-nullable: true
+      SystemEventID:
+        type: integer
+        x-nullable: true
+      ParamName:
+        type: string
+        x-nullable: true
+      ParamValue:
+        type: string
+        x-nullable: true
+    required:
+    - ID
+    - SystemEventID
+    - ParamName
+    - ParamValue
+    type: object
+parameters:
+  limitParam:
+    in: query
+    name: limit
+    required: false
+    type: integer
+    format: int32
+    default: 500
+    description: The maximum number of items returned in the response. (This is capped out at 500 server side).
+  offsetParam:
+    in: query
+    name: offset
+    required: false
+    type: integer
+    format: int32
+    default: 0
+    description: The primary key offset for the query (this is normally zero, and should be the max primary key from the last query).
+paths:
+  /systemEvents:
+    get:
+      summary: "Search the recent system events from syslog."
+      parameters:
+        - in: query
+          name: facilities
+          required: false
+          type: array
+          items: {type: integer}
+          description: "The Syslog facilities to select."
+        - in: query
+          name: priorities
+          required: false
+          type: array
+          items: {type: integer}
+          description: "The syslog priorities to select."
+        - in: query
+          name: fromHosts
+          required: false
+          type: array
+          items: {type: string}
+          description: "The hosts to select."
+        - in: query
+          name: eventSources
+          required: false
+          type: array
+          items: {type: string}
+          description: "The event sources to select."
+        - in: query
+          name: messageFilter
+          required: false
+          type: string
+          description: "The PostgreSQL search string to filter messages on."
+        - in: query
+          name: syslogTagFilter
+          required: false
+          type: string
+          description: "The PostgreSQL search string to filter syslog tags on."
+        - in: query
+          name: startReceivedAt
+          required: false
+          type: string
+          format: date-time
+          description: "The minimum (inclusive) datetime (local to this syslog server) to select events on."
+        - in: query
+          name: endReceivedAt
+          required: false
+          type: string
+          format: date-time
+          description: "The maximum (inclusive) datetime (local to this syslog server) to select events on."
+        - in: query
+          name: startDeviceReportedTime
+          required: false
+          type: string
+          format: date-time
+          description: "The minimum (inclusive) datetime (as seen at the system generating the event) to select events on."
+        - in: query
+          name: endDeviceReportedTime
+          required: false
+          type: string
+          format: date-time
+          description: "The maximum (inclusive) datetime (as seen at the system generating the event) to select events on."
+        - $ref: "#/parameters/limitParam"
+        - $ref: "#/parameters/offsetParam"
+      responses:
+        '200':
+          schema:
+            type: array
+            items: {$ref: "#/definitions/SystemEvent" }
+          description: "The matching system events"
+  /systemEvents/fromHosts:
+    get:
+      summary: "Get a list of all hosts currently present in the event log"
+      parameters:
+        - $ref: "#/parameters/limitParam"
+        - $ref: "#/parameters/offsetParam"
+      responses:
+        '200':
+          schema:
+            type: array
+            items: {type: string}
+          description: 'The unique hosts seen'
+  /systemEvents/priorities:
+    get:
+      summary: "Get a mapping of priority IDs to their meanings"
+      responses:
+        '200':
+          schema:
+            type: object
+          description: "The int -> str mapping of priorities to their meanings"
+  /systemEvents/facilities:
+    get:
+      summary: "Get a mapping of facility IDs to their meanings"
+      responses:
+        '200':
+          schema:
+            type: object
+          description: "The int -> str mapping of facilities to their meanings"
