@@ -3,3 +3,4 @@ RUN apt-get -y update && apt-get -y upgrade
 
 COPY . /app
 RUN python3 -m pip install -r /app/requirements.txt
+CMD /app/run_rp_tools.py
