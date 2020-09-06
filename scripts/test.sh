@@ -7,6 +7,7 @@ source "${SCRIPT_DIR}/common.sh"
 run_tests(){
   start_database
   echo "Starting tests..."
+  pip install -r "${BASE_DIR}/dev-requirements.txt"
   TEST_DATABASE_URL="postgres://postgres:${DATABASE_PASSWORD}@localhost:${DATABASE_PORT}/${DATABASE_NAME}" pytest --cov="${BASE_DIR}/rsyslog_postgres_tools" "${BASE_DIR}/test_rsyslog_postgres_tools"
   echo "Stopping tests..."
   stop_database

@@ -30,18 +30,16 @@ build(){
 
 run_untagged(){
   cd "${BASE_DIR}" || return
-  HTTP_PORT="$(( RANDOM % 3000 + 2000))"
-  echo "Port ${HTTP_PORT} mapped to port 8080 in container"
-
+  
   # Bad hack to work around the fact default bind host is to 127.0.0.1,
   # which we probably don't want running in a container
-  if [[ "$*" =~ .*run_http_server.* ]]; then
+  if [[ "$@" =~ .*run_http_server.* ]]; then
+    HTTP_PORT="$(( RANDOM % 3000 + 2000))"
+    echo "Port ${HTTP_PORT} mapped to port 8080 in container"
     docker run -p "${HTTP_PORT}:8080" -it "$(docker build -q .)" "/app/run_rp_tools.py" "$@" -b 0.0.0.0
   else
-    docker run -p "${HTTP_PORT}:8080" -it "$(docker build -q .)" "/app/run_rp_tools.py" "$@"
+    docker run -it "$(docker build -q .)" "/app/run_rp_tools.py" "$@"
   fi
-
-
 }
 
 
