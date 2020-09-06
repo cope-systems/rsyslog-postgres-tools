@@ -17,19 +17,28 @@ def database_url():
 
 
 @pytest.fixture
+def apply_migrations():
+    return True
+
+
+@pytest.yield_fixture
 def database_connection(database_url):
     connection = regular_connect(database_url)
     cleanup_database(connection)
-    return connection
+    yield connection
+    connection.close()
 
 
-@pytest.fixture
-def initialized_db_connection(database_url):
+@pytest.yield_fixture
+def initialized_db_connection(database_url, apply_migrations):
     connection = regular_connect(database_url)
     cleanup_database(connection)
     connection.close()
-    migrate_database_up(database_url)
-    return regular_connect(database_url)
+    if apply_migrations:
+        migrate_database_up(database_url)
+    conn = regular_connect(database_url)
+    yield conn
+    conn.close()
 
 
 @pytest.fixture
