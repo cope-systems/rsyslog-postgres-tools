@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/cope-systems/rsyslog-postgres-viewer.svg?branch=master)](https://travis-ci.org/cope-systems/rsyslog-postgres-viewer) 
 [![Coverage Status](https://coveralls.io/repos/github/cope-systems/rsyslog-postgres-viewer/badge.svg?branch=master)](https://coveralls.io/github/cope-systems/rsyslog-postgres-viewer?branch=master)
 [![PyPI version](https://badge.fury.io/py/rsyslog-postgres-tools.svg)](https://badge.fury.io/py/rsylog-postgres-tools)
+![Docker Image Version (latest semver)](https://img.shields.io/docker/v/copesystems/rsyslog-postgres-tools)
 
 ## About
 
@@ -15,6 +16,7 @@ and eventlet to provide an HTTP viewer and OpenAPI 2.0 REST API.
   (```python setup.py install```) or may be built as a docker container,
   and executed through docker. See the provided Makefile for building a 
   tagged container.
+* Tagged releases are available on DockerHub tagged as ```copesystems/rsyslog-postgres-tools```
 
 
 ## Usage
