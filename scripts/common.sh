@@ -6,10 +6,15 @@ DATABASE_PORT=
 DATABASE_RUNNING=0
 HTTP_PORT=
 OLD_DIR="$(pwd)"
+MINIMUM_COVERAGE=90
 
 
 get_version(){
   cat "${BASE_DIR}/VERSION"
+}
+
+get_pytest_args(){
+  echo "--cov-report term-missing --cov-fail-under=${MINIMUM_COVERAGE} --cov=rsyslog_postgres_tools ${BASE_DIR}/test_rsyslog_postgres_tools/"
 }
 
 return_to_old_dir(){
