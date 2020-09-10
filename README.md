@@ -1,6 +1,6 @@
 # rsyslog-postgres-viewer
-[![Build Status](https://travis-ci.org/cope-systems/rsyslog-postgres-tools.svg?branch=master)](https://travis-ci.org/cope-systems/rsyslog-postgres-viewer) 
-[![Coverage Status](https://coveralls.io/repos/github/cope-systems/rsyslog-postgres-tools/badge.svg?branch=master)](https://coveralls.io/github/cope-systems/rsyslog-postgres-viewer?branch=master)
+[![Build Status](https://travis-ci.org/cope-systems/rsyslog-postgres-tools.svg?branch=master)](https://travis-ci.org/cope-systems/rsyslog-postgres-tools) 
+[![Coverage Status](https://coveralls.io/repos/github/cope-systems/rsyslog-postgres-tools/badge.svg?branch=master)](https://coveralls.io/github/cope-systems/rsyslog-postgres-tools?branch=master)
 [![PyPI version](https://badge.fury.io/py/rsyslog-postgres-tools.svg)](https://badge.fury.io/py/rsylog-postgres-tools)
 ![Docker Image Version (latest semver)](https://img.shields.io/docker/v/copesystems/rsyslog-postgres-tools)
 
